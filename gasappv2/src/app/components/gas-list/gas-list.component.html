@@ -57,6 +57,7 @@
       <p><strong>Precio Gasolina 95:</strong> {{ gasolinera.price95 }}</p>
       <p><strong>Precio Diesel:</strong> {{ gasolinera.priceDiesel }}</p>
       <p><strong>Rótulo:</strong> {{ gasolinera.rotulo }}</p>
+      <a [href]="gasolinera | googleMapsLink" target="_blank" class="btn btn-primary">Ver mapa</a>
     </div>
     }
   </div>
