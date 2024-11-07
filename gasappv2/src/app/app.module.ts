@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GasListComponent } from './components/gas-list/gas-list.component';
 import { provideHttpClient } from '@angular/common/http';
+import { GoogleMapsLinkPipe } from './pipes/google-maps-link.pipe';
 
 @NgModule({
-  declarations: [AppComponent, GasListComponent],
+  declarations: [AppComponent, GasListComponent, GoogleMapsLinkPipe],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent],
