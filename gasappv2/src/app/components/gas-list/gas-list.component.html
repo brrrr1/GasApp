@@ -22,8 +22,20 @@
   <label for="precioMax">Precio Máximo:</label>
   <input type="number" id="precioMax" [(ngModel)]="precioMax" />
 
-  <label for="postalCode">Código Postal:</label>
-  <input type="text" id="postalCode" [(ngModel)]="postalCode" />
+  <mat-form-field class="example-full-width">
+    <mat-label>Código Postal</mat-label>
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="Código Postal"
+           matInput
+           [formControl]="postalCodeControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      @for (option of filteredPostalCodes | async; track option) {
+        <mat-option [value]="option">{{option}}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
 
   <div class="checkboxes">
     <label><input type="checkbox" value="REPSOL" (change)="onRotuloChange($event)" /> REPSOL</label>
