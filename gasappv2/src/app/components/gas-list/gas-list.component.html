@@ -1,0 +1,63 @@
+<header class="encabezado">
+
+  <h1>GasApp</h1>
+  <button class="icono-filtro" (click)="toggleFiltros()">
+    <i class="bi bi-list" style="color: white;"></i>
+  </button>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+</header>
+
+@if(mostrarFiltros){
+<div class="filtros">
+  <label for="tipoCombustible">Tipo de Combustible:</label>
+  <select id="tipoCombustible" [(ngModel)]="tipoCombustible">
+    <option value="gasolina">Gasolina</option>
+    <option value="diesel">Diesel</option>
+  </select>
+
+  <label for="precioMin">Precio Mínimo:</label>
+  <input type="number" id="precioMin" [(ngModel)]="precioMin" />
+
+  <label for="precioMax">Precio Máximo:</label>
+  <input type="number" id="precioMax" [(ngModel)]="precioMax" />
+
+  <label for="postalCode">Código Postal:</label>
+  <input type="text" id="postalCode" [(ngModel)]="postalCode" />
+
+  <div class="checkboxes">
+    <label><input type="checkbox" value="REPSOL" (change)="onRotuloChange($event)" /> REPSOL</label>
+    <label><input type="checkbox" value="CEPSA" (change)="onRotuloChange($event)" /> CEPSA</label>
+    <label><input type="checkbox" value="CARREFOUR" (change)="onRotuloChange($event)" /> CARREFOUR</label>
+    <label><input type="checkbox" value="TAMOS" (change)="onRotuloChange($event)" /> TAMOS</label>
+    <label><input type="checkbox" value="FAMILY ENERGY" (change)="onRotuloChange($event)" /> FAMILY ENERGY</label>
+    <label><input type="checkbox" value="INPEALSA" (change)="onRotuloChange($event)" /> INPEALSA</label>
+    <label><input type="checkbox" value="PETROCAMP" (change)="onRotuloChange($event)" /> PETROCAMP</label>
+    <label><input type="checkbox" value="ALCAMPO" (change)="onRotuloChange($event)" /> ALCAMPO</label>
+  </div>
+
+  <button (click)="filtrarGasolineras()">Filtrar</button>
+</div>
+}
+
+@if(noResults){
+<div>
+  <p>No hay resultados que coincidan con los filtros.</p>
+</div>
+}
+
+<section class="resultados" *ngIf="!noResults">
+  <h3>Resultados de la búsqueda:</h3>
+  <div class="grid">
+    @for(gasolinera of listadoGasolineras; track gasolinera.id){
+    <div class="tarjeta-gasolinera">
+      <h4>Estación: {{ gasolinera.nombre }}</h4>
+      <p><strong>IDEESS:</strong> {{ gasolinera.id }}</p>
+      <p><strong>Código Postal:</strong> {{ gasolinera.postalCode }}</p>
+      <p><strong>Precio Gasolina 95:</strong> {{ gasolinera.price95 }}</p>
+      <p><strong>Precio Diesel:</strong> {{ gasolinera.priceDiesel }}</p>
+      <p><strong>Rótulo:</strong> {{ gasolinera.rotulo }}</p>
+    </div>
+    }
+  </div>
+</section>

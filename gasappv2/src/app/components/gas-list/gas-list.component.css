@@ -1,0 +1,80 @@
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ff6600;
+    /* Naranja */
+    color: #fff;
+}
+
+.encabezado h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.icono-filtro {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.icono-filtro img {
+    width: 24px;
+    height: 24px;
+}
+
+.filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    background-color: #ff6600;
+    /* Naranja */
+    padding: 20px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #ffffff;
+    color: #ff6600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.resultados h3 {
+    color: #ff6600;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.tarjeta-gasolinera {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    color: #ff6600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta-gasolinera h4 {
+    margin: 0 0 10px;
+    color: #ff6600;
+}
+
+.tarjeta-gasolinera p {
+    margin: 4px 0;
+}
