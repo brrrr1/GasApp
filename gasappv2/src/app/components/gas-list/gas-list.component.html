@@ -46,7 +46,8 @@
 </div>
 }
 
-<section class="resultados" *ngIf="!noResults">
+@if(!noResults){
+<section class="resultados">
   <h3>Resultados de la búsqueda:</h3>
   <div class="grid">
     @for(gasolinera of listadoGasolineras; track gasolinera.id){
@@ -57,8 +58,10 @@
       <p><strong>Precio Gasolina 95:</strong> {{ gasolinera.price95 }}</p>
       <p><strong>Precio Diesel:</strong> {{ gasolinera.priceDiesel }}</p>
       <p><strong>Rótulo:</strong> {{ gasolinera.rotulo }}</p>
-      <a [href]="gasolinera | googleMapsLink" target="_blank" class="btn btn-primary">Ver mapa</a>
+      <a [href]="gasolinera | googleMapsRoute" target="_blank" class="btn btn-primary"
+        style="background-color: #ff6600; border-color: #ff6600;">Cómo llegar</a>
     </div>
     }
   </div>
 </section>
+}
