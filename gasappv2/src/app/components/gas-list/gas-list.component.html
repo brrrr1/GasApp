@@ -24,12 +24,14 @@
   <input type="text" id="postalCode" [formControl]="postalCodeControl" />
 
   <label for="comunidad">Comunidad Autónoma:</label>
-  <select id="comunidad" [(ngModel)]="comunidadSeleccionada" style="color: black;">
-    @for (comunidad of comunidades; track comunidad){
-    <option [value]="comunidad.IDCCAA" style="color: black;">
-      {{comunidad.Comunidad}}</option>
-    }
-  </select>
+  <mat-form-field appearance="fill">
+    <mat-label>Comunidad Autónoma</mat-label>
+    <mat-select [(ngModel)]="comunidadSeleccionada">
+      <mat-option *ngFor="let comunidad of comunidades" [value]="comunidad.id">
+        {{comunidad.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <div class="checkboxes">
     <label><input type="checkbox" value="REPSOL" (change)="onRotuloChange($event)" /> REPSOL</label>
