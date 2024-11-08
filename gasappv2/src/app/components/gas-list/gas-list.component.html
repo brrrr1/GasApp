@@ -1,5 +1,4 @@
 <header class="encabezado">
-
   <h1>GasApp</h1>
   <button class="icono-filtro" (click)="toggleFiltros()">
     <i class="bi bi-list" style="color: white;"></i>
@@ -8,8 +7,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 </header>
 
-@if(mostrarFiltros){
-<div class="filtros">
+<div *ngIf="mostrarFiltros" class="filtros">
   <label for="tipoCombustible">Tipo de Combustible:</label>
   <select id="tipoCombustible" [(ngModel)]="tipoCombustible">
     <option value="gasolina">Gasolina</option>
@@ -22,20 +20,8 @@
   <label for="precioMax">Precio Máximo:</label>
   <input type="number" id="precioMax" [(ngModel)]="precioMax" />
 
-  <mat-form-field class="example-full-width">
-    <mat-label>Código Postal</mat-label>
-    <input type="text"
-           placeholder="Pick one"
-           aria-label="Código Postal"
-           matInput
-           [formControl]="postalCodeControl"
-           [matAutocomplete]="auto">
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      @for (option of filteredPostalCodes | async; track option) {
-        <mat-option [value]="option">{{option}}</mat-option>
-      }
-    </mat-autocomplete>
-  </mat-form-field>
+  <label for="postalCode">Código Postal:</label>
+  <input type="text" id="postalCode" [formControl]="postalCodeControl" />
 
   <div class="checkboxes">
     <label><input type="checkbox" value="REPSOL" (change)="onRotuloChange($event)" /> REPSOL</label>
@@ -50,20 +36,15 @@
 
   <button (click)="filtrarGasolineras()">Filtrar</button>
 </div>
-}
 
-@if(noResults){
-<div>
+<div *ngIf="noResults">
   <p>No hay resultados que coincidan con los filtros.</p>
 </div>
-}
 
-@if(!noResults){
-<section class="resultados">
+<section *ngIf="!noResults" class="resultados">
   <h3>Resultados de la búsqueda:</h3>
   <div class="grid">
-    @for(gasolinera of listadoGasolineras; track gasolinera.id){
-    <div class="tarjeta-gasolinera">
+    <div *ngFor="let gasolinera of listadoGasolineras" class="tarjeta-gasolinera">
       <h4>Estación: {{ gasolinera.nombre }}</h4>
       <p><strong>IDEESS:</strong> {{ gasolinera.id }}</p>
       <p><strong>Código Postal:</strong> {{ gasolinera.postalCode }}</p>
@@ -73,7 +54,5 @@
       <a [href]="gasolinera | googleMapsRoute" target="_blank" class="btn btn-primary"
         style="background-color: #ff6600; border-color: #ff6600;">Cómo llegar</a>
     </div>
-    }
   </div>
 </section>
-}

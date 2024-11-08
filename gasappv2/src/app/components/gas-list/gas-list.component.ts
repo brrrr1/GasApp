@@ -20,16 +20,11 @@ export class GasListComponent implements OnInit {
   rotulos: string[] = [];
   noResults: boolean = false;
   postalCodeControl = new FormControl('');
-  filteredPostalCodes: Observable<string[]> | undefined;
 
   constructor(private gasService: GasService) { }
 
   ngOnInit() {
     this.loadGasList();
-    this.filteredPostalCodes = this.postalCodeControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterPostalCodes(value || ''))
-    );
   }
 
   private loadGasList() {
@@ -76,12 +71,6 @@ export class GasListComponent implements OnInit {
       this.rotulos
     );
     this.noResults = this.listadoGasolineras.length === 0;
-  }
-
-  private _filterPostalCodes(value: string): string[] {
-    const filterValue = value.trim();
-    const postalCodes = this.originalListadoGasolineras.map(g => g.postalCode);
-    return postalCodes.filter(option => option.startsWith(filterValue));
   }
 
   onRotuloChange(event: any) {
