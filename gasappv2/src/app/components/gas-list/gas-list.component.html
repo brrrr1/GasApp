@@ -28,7 +28,7 @@
     <mat-label>Comunidad Autónoma</mat-label>
     <mat-select [(ngModel)]="comunidadSeleccionada">
       <mat-option *ngFor="let comunidad of comunidades" [value]="comunidad.id">
-        {{comunidad.nombre}}
+        {{comunidad.CCAA}}
       </mat-option>
     </mat-select>
   </mat-form-field>
