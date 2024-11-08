@@ -20,11 +20,19 @@ export class GasListComponent implements OnInit {
   rotulos: string[] = [];
   noResults: boolean = false;
   postalCodeControl = new FormControl('');
+  filteredPostalCodes: Observable<string[]> | undefined;
+  comunidades: any[] = [];
+  comunidadSeleccionada: string = '';
 
   constructor(private gasService: GasService) { }
 
   ngOnInit() {
     this.loadGasList();
+    this.loadComunidades();
+    this.filteredPostalCodes = this.postalCodeControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterPostalCodes(value || ''))
+    );
   }
 
   private loadGasList() {
@@ -42,6 +50,12 @@ export class GasListComponent implements OnInit {
     });
   }
 
+  private loadComunidades() {
+    this.gasService.getComunidades().subscribe((respuesta) => {
+      this.comunidades = respuesta;
+    });
+  }
+
   private cleanProperties(arrayGasolineras: any) {
     let newArray: Gasolinera[] = [];
     arrayGasolineras.forEach((gasolineraChusquera: any) => {
@@ -53,7 +67,8 @@ export class GasListComponent implements OnInit {
         gasolineraChusquera['C.P.'],
         gasolineraChusquera['Rótulo'],
         gasolineraChusquera['Latitud'],
-        gasolineraChusquera['Longitud (WGS84)']
+        gasolineraChusquera['Longitud (WGS84)'],
+        gasolineraChusquera['IDCCAA']
       );
       newArray.push(gasolinera);
     });
@@ -68,9 +83,16 @@ export class GasListComponent implements OnInit {
       this.precioMin,
       this.precioMax,
       this.postalCode,
-      this.rotulos
+      this.rotulos,
+      this.comunidadSeleccionada
     );
     this.noResults = this.listadoGasolineras.length === 0;
+  }
+
+  private _filterPostalCodes(value: string): string[] {
+    const filterValue = value.trim().toLowerCase();
+    const postalCodes = this.originalListadoGasolineras.map(g => g.postalCode);
+    return postalCodes.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   onRotuloChange(event: any) {

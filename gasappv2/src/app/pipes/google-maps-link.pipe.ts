@@ -8,12 +8,11 @@ export class GoogleMapsLinkPipe implements PipeTransform {
 
   transform(gasolinera: Gasolinera, ...args: unknown[]): unknown {
     const sanitizedLatitude = this.sanitizeValue(gasolinera.latitude);
-    const sanitizedAltitude = this.sanitizeValue(gasolinera.altittude);
-    return `https://maps.google.com/?q=${sanitizedLatitude},${sanitizedAltitude}`;
+    const sanitizedLongitude = this.sanitizeValue(gasolinera.longitude);
+    return `https://maps.google.com/?q=${sanitizedLatitude},${sanitizedLongitude}`;
   }
 
   sanitizeValue(value: string): string {
     return value.replace(',', '.');
-
   }
 }

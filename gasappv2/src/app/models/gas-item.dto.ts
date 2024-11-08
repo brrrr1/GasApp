@@ -7,6 +7,7 @@ export class Gasolinera {
     public postalCode: string,
     public rotulo: string,
     public latitude: string,
-    public altittude: string
+    public longitude: string,
+    public comunidad: string
   ) {}
 }
