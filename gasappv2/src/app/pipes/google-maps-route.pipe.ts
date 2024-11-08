@@ -7,7 +7,7 @@ import { Gasolinera } from '../models/gas-item.dto';
 export class GoogleMapsRoutePipe implements PipeTransform {
 
   transform(gasolinera: Gasolinera, ...args: unknown[]): unknown {
-    return `https://www.google.com/maps/dir/?api=1&destination=${this.sanitizeValue(gasolinera.latitude)},${this.sanitizeValue(gasolinera.altittude)}`;
+    return `https://www.google.com/maps/dir/?api=1&destination=${this.sanitizeValue(gasolinera.latitude)},${this.sanitizeValue(gasolinera.longitude)}`;
   }
 
   sanitizeValue(value: string): string {

@@ -15,13 +15,20 @@ export class GasService {
     );
   }
 
+  getComunidades(): Observable<any[]> {
+    return this.http.get<any[]>(
+      'https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/Listados/ComunidadesAutonomas'
+    );
+  }
+
   filterGasList(
     gasolineras: Gasolinera[],
     tipoCombustible: string,
     precioMin: number,
     precioMax: number,
     postalCode: string,
-    rotulos: string[]
+    rotulos: string[],
+    comunidad: string
   ): Gasolinera[] {
     return gasolineras.filter((gasolinera) => {
       const precio =
@@ -30,11 +37,13 @@ export class GasService {
           : gasolinera.priceDiesel;
       const matchesPostalCode = postalCode ? gasolinera.postalCode === postalCode : true;
       const matchesRotulo = rotulos.length > 0 ? rotulos.includes(gasolinera.rotulo) : true;
+      const matchesComunidad = comunidad ? gasolinera.comunidad === comunidad : true;
       return (
         precio >= precioMin &&
         precio <= precioMax &&
         matchesPostalCode &&
-        matchesRotulo
+        matchesRotulo &&
+        matchesComunidad
       );
     });
   }

@@ -23,6 +23,14 @@
   <label for="postalCode">Código Postal:</label>
   <input type="text" id="postalCode" [formControl]="postalCodeControl" />
 
+  <label for="comunidad">Comunidad Autónoma:</label>
+  <select id="comunidad" [(ngModel)]="comunidadSeleccionada" style="color: black;">
+    @for (comunidad of comunidades; track comunidad){
+    <option [value]="comunidad.IDCCAA" style="color: black;">
+      {{comunidad.Comunidad}}</option>
+    }
+  </select>
+
   <div class="checkboxes">
     <label><input type="checkbox" value="REPSOL" (change)="onRotuloChange($event)" /> REPSOL</label>
     <label><input type="checkbox" value="CEPSA" (change)="onRotuloChange($event)" /> CEPSA</label>
