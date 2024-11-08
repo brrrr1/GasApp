@@ -81,7 +81,8 @@ export class GasListComponent implements OnInit {
         gasolineraChusquera['Rótulo'],
         gasolineraChusquera['Latitud'],
         gasolineraChusquera['Longitud (WGS84)'],
-        gasolineraChusquera['IDCCAA']
+        gasolineraChusquera['IDCCAA'],
+        gasolineraChusquera['IDProvincia'] // Asignar la provincia correctamente
       );
       newArray.push(gasolinera);
     });
@@ -98,7 +99,7 @@ export class GasListComponent implements OnInit {
       this.postalCode,
       this.rotulos,
       this.comunidadSeleccionada,
-      this.provinciaSeleccionada
+      this.provinciaSeleccionada // Añadir provinciaSeleccionada al filtrado
     );
     this.noResults = this.listadoGasolineras.length === 0;
   }

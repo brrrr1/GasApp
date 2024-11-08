@@ -48,7 +48,7 @@ export class GasService {
   }
 
   filterGasList(
-gasolineras: Gasolinera[], tipoCombustible: string, precioMin: number, precioMax: number, postalCode: string, rotulos: string[], comunidad: string, provinciaSeleccionada: string  ): Gasolinera[] {
+gasolineras: Gasolinera[], tipoCombustible: string, precioMin: number, precioMax: number, postalCode: string, rotulos: string[], comunidad: string, provincia: string  ): Gasolinera[] {
     return gasolineras.filter((gasolinera) => {
       const precio =
         tipoCombustible === 'gasolina'
@@ -57,12 +57,14 @@ gasolineras: Gasolinera[], tipoCombustible: string, precioMin: number, precioMax
       const matchesPostalCode = postalCode ? gasolinera.postalCode === postalCode : true;
       const matchesRotulo = rotulos.length > 0 ? rotulos.includes(gasolinera.rotulo) : true;
       const matchesComunidad = comunidad ? gasolinera.comunidad === comunidad : true;
+      const matchesProvincia = provincia ? gasolinera.provincia === provincia : true;
       return (
         precio >= precioMin &&
         precio <= precioMax &&
         matchesPostalCode &&
         matchesRotulo &&
-        matchesComunidad
+        matchesComunidad &&
+        matchesProvincia
       );
     });
   }

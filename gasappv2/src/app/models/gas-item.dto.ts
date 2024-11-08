@@ -8,6 +8,7 @@ export class Gasolinera {
     public rotulo: string,
     public latitude: string,
     public longitude: string,
-    public comunidad: string
+    public comunidad: string,
+    public provincia: string
   ) {}
 }
