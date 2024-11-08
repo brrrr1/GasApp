@@ -52,6 +52,7 @@ export class GasListComponent implements OnInit {
 
   private loadComunidades() {
     this.gasService.getComunidades().subscribe((respuesta) => {
+      console.log('Comunidades cargadas:', respuesta); // Añadir este log
       this.comunidades = respuesta;
     });
   }
