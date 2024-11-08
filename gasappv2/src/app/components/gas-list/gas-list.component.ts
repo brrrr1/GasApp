@@ -23,6 +23,8 @@ export class GasListComponent implements OnInit {
   filteredPostalCodes: Observable<string[]> | undefined;
   comunidades: any[] = [];
   comunidadSeleccionada: string = '';
+  provincias: any[] = [];
+  provinciaSeleccionada: string = '';
 
   constructor(private gasService: GasService) { }
 
@@ -33,6 +35,9 @@ export class GasListComponent implements OnInit {
       startWith(''),
       map(value => this._filterPostalCodes(value || ''))
     );
+    this.postalCodeControl.valueChanges.subscribe(value => {
+      this.filtrarGasolineras();
+    });
   }
 
   private loadGasList() {
@@ -54,6 +59,13 @@ export class GasListComponent implements OnInit {
     this.gasService.getComunidades().subscribe((respuesta) => {
       console.log('Comunidades cargadas:', respuesta); // Añadir este log
       this.comunidades = respuesta;
+    });
+  }
+
+  private loadProvincias(IDCCAA: string) {
+    this.gasService.getProvincias(IDCCAA).subscribe((respuesta) => {
+      console.log('Provincias cargadas:', respuesta); // Añadir este log
+      this.provincias = respuesta;
     });
   }
 
@@ -85,7 +97,8 @@ export class GasListComponent implements OnInit {
       this.precioMax,
       this.postalCode,
       this.rotulos,
-      this.comunidadSeleccionada
+      this.comunidadSeleccionada,
+      this.provinciaSeleccionada
     );
     this.noResults = this.listadoGasolineras.length === 0;
   }
@@ -102,6 +115,15 @@ export class GasListComponent implements OnInit {
       this.rotulos.push(rotulo);
     } else {
       this.rotulos = this.rotulos.filter(r => r !== rotulo);
+    }
+  }
+
+  onComunidadChange() {
+    if (this.comunidadSeleccionada) {
+      this.loadProvincias(this.comunidadSeleccionada);
+    } else {
+      this.provincias = [];
+      this.provinciaSeleccionada = '';
     }
   }
 

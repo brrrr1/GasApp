@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Gasolinera } from '../models/gas-item.dto';
 import { map } from 'rxjs/operators';
 import { CCAA, ccAAResponse } from '../models/ccaa';
+import { Provincias } from '../models/provincia';
 
 @Injectable({
   providedIn: 'root',
@@ -31,15 +32,23 @@ export class GasService {
     );
   }
 
+  getProvincias(IDCCAA: string): Observable<Provincias[]> {
+    return this.http.get<Provincias[]>(`https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/Listados/ProvinciasPorComunidad/${IDCCAA}`)
+    .pipe(
+      map(response => {
+        console.log('Respuesta del servicio:', response); // Añadir este log
+        return response.map(provincia => ({
+          IDPovincia: provincia.IDPovincia,
+          IDCCAA: provincia.IDCCAA,
+          Provincia: provincia.Provincia,
+          CCAA: provincia.CCAA
+        }));
+      })
+    );
+  }
+
   filterGasList(
-    gasolineras: Gasolinera[],
-    tipoCombustible: string,
-    precioMin: number,
-    precioMax: number,
-    postalCode: string,
-    rotulos: string[],
-    comunidad: string
-  ): Gasolinera[] {
+gasolineras: Gasolinera[], tipoCombustible: string, precioMin: number, precioMax: number, postalCode: string, rotulos: string[], comunidad: string, provinciaSeleccionada: string  ): Gasolinera[] {
     return gasolineras.filter((gasolinera) => {
       const precio =
         tipoCombustible === 'gasolina'
