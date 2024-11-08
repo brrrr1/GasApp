@@ -9,9 +9,9 @@ import { Gasolinera } from '../models/gas-item.dto';
 export class GasService {
   constructor(private http: HttpClient) {}
 
-  getGasList(): Observable<any> {
-    return this.http.get(
-      'https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/'
+  getGasList(): Observable<Gasolinera[]> {
+    return this.http.get<Gasolinera[]>(
+      'http://localhost:3000/gasolineras'
     );
   }
 
