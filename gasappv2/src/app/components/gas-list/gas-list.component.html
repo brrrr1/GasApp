@@ -26,9 +26,19 @@
   <label for="comunidad">Comunidad Autónoma:</label>
   <mat-form-field appearance="fill">
     <mat-label>Comunidad Autónoma</mat-label>
-    <mat-select [(ngModel)]="comunidadSeleccionada">
-      <mat-option *ngFor="let comunidad of comunidades" [value]="comunidad.id">
+    <mat-select [(ngModel)]="comunidadSeleccionada" (selectionChange)="onComunidadChange()">
+      <mat-option *ngFor="let comunidad of comunidades" [value]="comunidad.IDCCAA">
         {{comunidad.CCAA}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <label for="provincia">Provincia:</label>
+  <mat-form-field appearance="fill">
+    <mat-label>Provincia</mat-label>
+    <mat-select [(ngModel)]="provinciaSeleccionada" [disabled]="!comunidadSeleccionada">
+      <mat-option *ngFor="let provincia of provincias" [value]="provincia.IDPovincia">
+        {{provincia.Provincia}}
       </mat-option>
     </mat-select>
   </mat-form-field>
